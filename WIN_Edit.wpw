@@ -1,0 +1,617 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WIN_Edit
+ major_version : 28
+ minor_version : 0
+ type : 2
+ description : ""
+ subtype : 0
+window :
+ name : WIN_Edit
+ identifier : 0x26e92b7d083e5a58
+ internal_properties : CAAAAAgAAABEBNSTr3KYYxVHrlQF5XX/ZW5urp9cZWjUYElaT5U5RWzok+fJIIHYe5vMJTWMUHsolgFXipj3cy6pfVdsRN4z27bX2UZ9HkjrHclPF6Si7Z0MMxO3f/u3ZLlozWPX+v710MICt3vkC3JCQbX2fupbocxH0d36AMqW+BwzZ+jSvp5IzW50ogdnxydtRENuGuDSdlOOLVsUVnC7t1RRBNWJkEFMrC3ri24kGYim18i4E9w9kwDQ/KizktK9PdagerQX7eFzKMtJglKDNVxxpbohjodLzjCO6mC28RKsC9ppPBqnunVb+RTC02aeHI24kzmRDAQ3HqGlnGkx8+EviiMDF6IW2mbbPG/xYwV/ykslgprzoOltB8ISSQU0wL4n/+eFeU6JYgkxa1Is1sPXI2Uy+KZ/cH6a+llZzYabh+hUdb2O+Y7khvkL4wCNTkO9jyOoULRpvc0yMsxdO7Nbr901aEmdIqWzhijAt4ryc9/LYlewdu1Nc5pPLEeJTGb8jKfjmIS5a6+0aTQ5FH0PrsoAfFAo4bUn01jXc3UTmdnW5PbQAHADdP+VmoG4B5fOOGs3XuLTht5gNz0uaQERS0Bdg3ib89UCSuaFtKNtXqVOfNx1GHyQkisOhdNvxpt5CqjfYTGuhF4kULuK/0SjVKR4fahzqDxT9IGeRJi10yhLen/nH1xgpIENiFwzqsEkU608Q3sWiZ4BiQMaAlFkb+OJ62c/SIawV7iJQdiECJIL+ef2R2G11gLvbMV+rRY5b7MUcoYLTMjQzbh/uOM=
+ properties :
+  width : 320
+  height : 407
+  heightMin : 471
+ controls :
+  -
+    name : IMG_Note
+    identifier : 0x26e92b7d08435a58
+    internal_properties : CAAAAAgAAACwsWuYwwKVe8Z1pAepuPVStGA7IPYfiy2mLnVX4KvP5wtROStPyHplEPBGj3R3vH0kldanT+R7iCFXHNBDuYGXeNxk1M64eM/eQeI/uKomjzyHN/phHSpk9OWuYB0zLp6sWDwApHF1gvekV21TAbrldLEsl18RRGkjdrgkg3SwxJQ047+9sJKBfBd9npiJE2s3YxNqZe6XvoO5FTaUL9JsVRe+YNymIlH3I2cNiOrgqRfX/j56j2VucIIeEBL1K93NeZVohhVbD1zYx4kzbx2e102VDXPg5TxZ/VWURdvbZcCl8IYMlUC9FkjFQIoOST/RCL1fFAGYgwCmnaBr+w1k5TZfhmwVny2K1pDfDaNooC98lMv1ZZha/cqZ7eGgt3cZuCHIxik/gMDdSkTzvpAo5VEsGJUrHjLisXhr1AIseOcH0rJM0a4GEwvq63Gggh5i0QOf8g25lU/7p72uJ8M5r3wdxV4eggRkJWJ7J8Z7O/btxMrkp1IDM+9VA0JH12Pgcx6/8uWBas462pdQLdaKLj9NqvRk13Tv5WSWZRGVAum/QMS695kIWI9m9knCyr0vu6CZ5+14Q8QiadBHy3Cjvq71Vs3+NmAyIMY+v2UJE64plNxxPH3OEr/HM0GOjO7shaZR7A8kNLBdhb3QisBWx+6tXmBHwDe+6PsrS4W0mIaR8tHpe7w5+EJkWEJbj3XgxnxqlHiQB8bhmjHtiGmYqNql6uonAfHv05Rx1u8hpRcB6eL1k7Y4XJ4VP1/dmVz2RoGJCTlMakB2ayojhA==
+    properties :
+     width : 320
+     height : 339
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes :
+      -
+        code : |1-
+         
+        type : 14
+      -
+        code : |1+
+         
+         nColor is int
+         nx, ny are int
+         dnx, dny are int
+         
+         // If the drawing is enabled
+         IF gbPenDown THEN
+         	// Retrieves the stylus coordinates
+         	nx = MouseXPos()
+         	ny = MouseYPos()
+         	
+         	IF NOT gbInPencilMode THEN
+         		nColor = iWhite
+         	ELSE
+         		nColor = gnCurrentColor
+         	END
+         	
+         	// If the former horizontal position is not 0
+         	IF gnX <> 0 THEN
+         		// the start point X is the former horizontal position
+         		dnx = gnX
+         	ELSE
+         		// Otherwise, the start point X is the stylus X-coordinate
+         		dnx = nx
+         	END
+         	
+         	// If the former vertical position is not 0
+         	IF gnY <> 0 THEN
+         		// the start point Y is the former vertical position
+         		dny = gnY
+         	ELSE
+         		// Otherwise, the start point Y is the stylus Y-coordinate
+         		dny = ny
+         	END
+         	
+         	// Draws a line with the specified color and size
+         	dLine(dnx, dny, nx, ny, nColor, CoordinateEditorToScreen(gnPenSize))	
+         	
+         	// The former X position becomes the current X position of the stylus
+         	gnX = nx
+         	// The former Y position becomes the current Y position of the stylus
+         	gnY = ny
+         END
+        type : 66048
+      -
+        code : |1+
+         
+         nColor is int
+         IF NOT gbInPencilMode THEN
+         	nColor = iWhite
+         ELSE
+         	nColor = gnCurrentColor
+         END
+         
+         // Enables the drawing
+         gbPenDown = True
+         // Draws a point with the size and color defined at stylus position (where the stylus was pressed)
+         dLine(MouseXPos(), MouseYPos(), MouseXPos(), MouseYPos(), nColor, gnPenSize)
+         
+         
+         // The former X position becomes the current X position of the stylus
+         gnX = MouseXPos()
+         // The former Y position becomes the current Y position of the stylus
+         gnY = MouseYPos()
+         
+         // The document was modified
+         gbSaved = False
+         // Enables the backup button
+         IMG_Save..State = Active
+        type : 66049
+      -
+        internal_properties : CAAAAAgAAABPKakwX0SdVtFqh8hsZwbfsSvubMa3R4sJ8EsmiNVJiZvW2NglwnWhEvlP1oyyS5wBvFjUxhoZ3a10Vwjl66dL4mr7Dm5z+133ybF/gwXJ2eiim7L3dq3Mh19kX2QEtCc24rZsK5F0cM+Ss+g=
+        code : |1+
+         
+         // Disables the drawing
+         gbPenDown = False
+         // Reinitializes the backup of stylus position
+         gnX = 0
+         gnY = 0
+        type : 66050
+  -
+    name : IMG_Image1
+    identifier : 0x26e92b7d08445a58
+    internal_properties : CAAAAAgAAADROF005RdqK9bEIukarDYnQv0hCWBNOzcCxfq00ROBZoPTea6yzXrzUs0oiyamM7kqm9WrsRHznka+8Afw8TdhvI2WaI1eLatzzpTCHxIe0j2stFHdHZ3yVTrRRFN3CfFrIVcJb50OW8ilWjNoE5d1iEtV9nlqmyIZM/DePhpRMp5BvjcuaNTtykgFB22oc6rqTP37aTBe5WOjHxO/wmMCvJatl79BYM1GzqelW4umP38708Fhgd3pQb6JGRXh3qWpdUgSx+aSdI1zQS6duqUDN54go17RSEoIWxD+kMmkpx4oXf4Wfj3I1SGgQ1+LbQlZqpD37NPUKYGlNyJZJKWSbxWHAa09o1j2c5th5FfEvCTcgToBMJlOASgJ1bOQVmKnozMBw1vEMH2ptfzmldwwRrjFPZtXIX0SK4SDkgbEpjEVVhHJKzeMdmXBRk65ddD1+EdIFPcp5oGVF1CL+l5XSNNTQHTdSeK8SJOjWe3v716oEzWVE3Wl1v7gkBTYBLwWQf4DDyucq3aCAV7T1lqCoq5x/kxIpoJxDPoNNa8TPHwEc0L0O/tFrXKUo4jWg/vbAs+rBUX913ki0pm7RDcqi1pCs++mXy5PwyOsXLrb3O2cqseBNXx92hAgwJEBb00krrmIp7hfMfMx3kLicTTNmL9sA0iX3yYJiA+40gGF6wriOqPejJlXX5qsZ05Dod2tlGeoQuSNP3vIOZgJfi1KLE6BdOt0KBa3YWZO1nzSx60040ixRdNPYuqxEANiZxKP+3Iwaztr3Bth/2Kn+hPX7ndpfXWKnN2dZPY34uesqDZM4LMOgGnz3EF2nxoy4zuokbyL
+    properties :
+     y : 339
+     width : 320
+     height : 1
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
+  -
+    name : IMG_Save
+    identifier : 0x26e92b7d08455a58
+    internal_properties : CAAAAAgAAAABttAC5whZeV7i4pswI6HdnS+p2LrKBsLHIXGYuIlqDyOZV7JFZUlercUy8S0zt/tdGrCw+wcgqRYLv7M0dVehbIuxPP7CTf4jllgHwiSEGUtp+fjZRNTYFS8odDwAmDV8cA/CSgdEFc+9dMNwIiLoD3ZOYsMX4wpCSFXEn+jPgKyz/OFOFv/rG/n2o1qi+mtAFJovHRpEX6eqV78Fzrn066hAkPdV0NruEmhOZznRlO3hLkkBjSqHzyRLfoFAu10wHLJq2rIKRtKw2mmck39NSAAODDkakO9J9twq4O56tTfBuxGo3NLX+ScsLrgnyXMfu1vUhN4qXOnZbE/jA7UWWER7AYhCaFEYRNPzr3SiFksvouppZ0g+3UZblmHela0Tz5hdmxQjRCUusMTCajGKRWzq+/kQZ2QmTh46aJPSjl2SfUGDUuI22AmNzp7czMPheFW/Mkr1T8cLblZIuR9dTSGhaHt9PPz+H/8F4jLsnk8XrgRhN7kBjbo7iH3ARS0vy5/z4FUQn9Vfa3/93VBMbbKga1NeZwYQZj6zC0VtQVYomXW34i27TBGgEPMqNPBMoZirmcqEXsPUklx9V+y6OtOuPhRPBC78EYud0pCsfnsK/GYI01DDo6PvHbP/k2fuOvZIpMzP2TiIENqLIJJGwatiP/MO7tp/slMIX+s5Bu/mG1gIK05LKNXNqVoJL5c1SGHN1tMf7EeQa0q6G8/l30QL7jllu/dxaI8me87eRVQGEYEidU9bBuJp7WFSM15BiJpPrdKaWcoEeli4YvfVpB/TGADrB1SWL1uEvtK9jslmhxPMtiX/m5YUvXot
+    properties :
+     x : 14
+     y : 353
+     width : 40
+     height : 40
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes :
+      -
+        code : |1+
+         
+         // Save
+         Save()
+         
+        type : 18
+  -
+    name : BTN_DRAWINGTOOL
+    identifier : 0x26e92b7d08465a58
+    internal_properties : CAAAAAgAAABtMgkY8g+FtzgR30iljRDk/drLYw4WcAvCBYtnng2sn+og1aMKxsBbR+fIvxkQXvSb9AmCIYzOUNE8phXz8iDB/c1uIgBB6dO53JJ3MBXw7tj9l0yCiICUCkQZl2RpFOAyI6D/SzlflzZrzBXUaMAqg7vx4WnInlogjG7a1WJCSK1XdfD4MhV+t2Tc+9J/AxwEyBke5uWKePsXHzMBQkZwrfNvGAnyeDJ6+T4CXSheTgSEOqZyoomZN+PlpoquUVrU8ak3lOY5TsNjpczpN+7m2yunf3b4jChucR7ocUHxiGCbPH/W+zjf2c6JCGDU/F59XmcUsNJQbZfrPnPyV/3/iCarY7aNkyyfqjS8PHQevTdXwtSTopJy0nFcZd7gIalRsSQhZkWwcvIgq4ED/wjNEEkAmvD+f3JMsx/Xoy4lWfMZPYLcW9YccQVOHAYK/SAUBRlECikkSgsKm0bvokx+JcM+CGr9Pvo6r2CcysYE0lrajO8kliVVGoxHXjnB1xfhweT0y0k17yXF1UPuxzhEbf31nRvBHJBLoyMkqlc6Jj314NBSbIlpFii9Yo4tsgFBVVOctyZFdvMi9VHaZLG/TdVdtzef/+YBvwpdpbMIZ/cUxl6s33hCSvEQnmfcV9T80uaiFMrcwy40u+IghaDD0F8WRwdi0O3aCIvJJ7AvF/Ja0f8ePnisCSLHDH3CuUau3jyYvX1s7r79felvl37lfGq1vQrEj15MohzB07V/0x3MxvqBCJ7gr4c=
+    properties :
+     x : 79
+     y : 353
+     width : 40
+     height : 40
+    type : 4
+    code_elements :
+     type_code : 4
+     p_codes :
+      -
+        code : |1-
+         
+         MySelf..BackgroundImage = IMG_Pencil
+        type : 14
+      -
+        code : |1+
+         
+         IF gbInPencilMode THEN
+         	// Enables the "Eraser" tool
+         	BTN_DRAWINGTOOL..BackgroundImage = IMG_Eraser
+         	// White Color
+         	CURRENT_COLOR..BrushColor = iWhite
+         	// The color picker is grayed
+         	CURRENT_COLOR..State = Grayed
+         	gnPenSize = 50
+         	COMBO_Size = 8
+         	gbInPencilMode = False
+         ELSE
+         	// Enables the "Drawing" tool
+         	BTN_DRAWINGTOOL..BackgroundImage = IMG_Pencil
+         	// Current Color
+         	CURRENT_COLOR..BrushColor = gnCurrentColor
+         	// Enables the color picker
+         	CURRENT_COLOR..State = Active
+         	gnPenSize = 2
+         	COMBO_Size = 2
+         	gbInPencilMode = True
+         END
+        type : 18
+      -
+        type : 161
+        enabled : false
+  -
+    name : IMG_Eraser
+    identifier : 0x26e92b7d08475a58
+    internal_properties : CAAAAAgAAACNXIkgcUNmB1I4Zm3e0s43MrKhcpKxDxurmf7+wKrAZYDPqyxaLp8bhCs5ee/8JJRfzAuEVIqG1hjGP3R9LZE5gJnpOoxAPB+yCdL8T4WnWr9ajfw/auIBEEX3vFLdmflkFdn6dPh46VhUUiPSmi1rc0Au7ApwwYuwExQeTM09GmH3viwrADBckXHVma47Ba/L33gJ/adkgj20euOlFv/yF6WHndVvSTY4YP4+Wlugw4ufpK9J0GI/ASE/O7LyvoF8t9QmCyiwwQXFWoQ+98J6QNONnpAn/zJO7j9YAyoO5+1FksBRJiMx+H0xZv471CP5pz5jKubrcLhNk4TLzdyN9xNdl+CTDwSNP4211sMilwsYuuDZKPyHEcFZCyDJvP8hSC7FUQG+WQGIJRL9lV6bfmh4KCrRCaEDUY4zGoB0SwwpjEbmviD8NoU//LLlbXhbLXPIgUQ9J0jGOXJA8taPXbxJVARa/TsUIVFjXMOYwMyHXfVAVcDOzzORO3sJxZF3Cr+VKGR0adpsnFlakN+VjOxobx9nuKfj1sZ+1UXMxDYINZTOAYNVeicBnOk+YD+ISj9swGZv73cA5EVPaL6ynvWvm/NwK49evdaT66v9t4LR/1oGKJ9gxWwY4Y4CYqxrJwHT47X9KvtWo8eZhGEdPaIPyEIC2IQcS91etlXneKh0SN+29APBxSyoO6bb+xvh/t04UhTF98Nbbb95Y9EmVOcObQ2gTulBge8A+y8gYYhiq6QKXyj1tph34jAWDbLxqJknzhsx/HGhNhLa8UJXky9Ybsb5FeQkkyXrnvtAqlX9MsG4Lh0XkFU6MxY2R7+szWBX
+    properties :
+     x : 389
+     y : 6
+     width : 40
+     height : 40
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
+  -
+    name : COMBO_Size
+    identifier : 0x26e92b7d08485a58
+    internal_properties : CAAAAAgAAADKVTcePNJfQoKpcd5RFJlkFx8ozLgfTJDjQWCa0UyUN1mtUN2coTseni07BLYvT6C1Sg9IjwF2Sm9vb7f/PIe7SdAG3hQc7svVsMvDpMIL7Q3FtbEB8kximifdV7cAswaYj44RrtiRm5omug8lugf0YfSQM6k44JaDiVxZQyqM0v/CDNsASQyY2Y/qCCz8Jl4w9q6f44TDqRjrlVuxLK5xUpS1e2pLHB5CsGd/rjyqStggsgM78hB4HDznEcXYVQX2afaE9gj8msRA7PLBVT9YrKR+Q/L8BY5yDU68YeMPWJWHV7pyzqalDEiwqntCARKVTZfCXhF+kY5ufXwNC6JgvODtjNva7Ln+zMpkbxu4ikE+cO9F5hDd7w2pb5ETi0KHc7Ou4zWFYVZtsMxjMKW8s0QrU8Ytz7OaDbVWQLV2NcdvX5apnQvgdMrYk+PdzLvHeXH3Rm7o1aYySxa2wSaumiGwahK9V5m0rUzxNbt6CNFF23oxtcD6rWH8+l/+4PQgdQCtftsVD2bMkPhSw3DKKpxXOzvgZegYaE2j+OivDNA9pnoV6uPux9k0EAzWCAkwjfbqyZFzj3MN11dl3J3sEn3IeZhAFntLUjCNA7kglAuxCDxOrlH4Xep+GxTRB8v3/Y4wg8WIFHvFNO9rhLE0/O+GKLk/6dp8CQsZFR6gw9hywqnB1RjT+hruuO3b7rnqnHKKS5G/eHX3nv+UyF+9q1os9Wstr0gPL5rFBtYbdWZN9WmiOMxwrbI7Q688QPC2+hePiaAg5koiBePFFpmn1lIfmIvIf756jktP21DPZJvHdLfv2rLaMEsWI07WaAbaqDmEqlgw4uMZ8cwHfADPpmoaX00XTamFXOyGFTzjvn5WUv/Om8lFLoWMr97Afme5nvZg9D5E17isA0MQsALzX2BYwuywl7DZ9VhrSiHA3QyaMSkYnHXLBFSMaNAD7ySA4AyUiRSbTIF4XUTNBLx9DjwJqWEOsXcNUVSCc17ybjsr+LIReyC+5f2Kv+i0aUk9n/cHU2FQ1dtXcValp4bsjxRdj1FqDxHyLdiE0HKJgba0FBM+V4JB1tJnrQsN0QwJLo1knFINy2VqN7TZEWghQtz9M6/HAH/LNyPX6mnwyHlvTnbrZKra94gh62jhnNjhbU73Ap+k496b3ZxZ3ulsYb4EVPc4RritLMgyAzXXFjMGYa9grQBVVz5B3oZrLUtTLJfAotJgEj9B98jxVPnE6Tv9VZ9fcJXKyFc35jw44WUXsNLvbz29leCAIwemMTsLrccRtb0GDfbpYm+cwpoB1dG3yENxndAjVXq/ivWahV5OOixIK6JNYR+KMvXFKRrp6RqECBM8Vbmc02UaSUlbHqUhTY6ndj4FLAWDPI7LgQZ4DvLj4omsbOP5zk0p+jMeizB+rZI+7bMEid2ZVvkXNPGzQgdvWx89X/WhgEWxVcITU4BQ1IaQamx74GKLJCoO76+WbWk20ynAzJ+RlrojNAFerXBOoF1OzG0tgA5Xiix7kyV4auZtdlWPwwDgsfWkSiV+9Kt462R82WwzKom4phcuYLq+B94u0nVh4TTFkWR1DusJcr9+KmvZstA=
+    properties :
+     x : 146
+     y : 352
+     width : 92
+     height : 42
+    dropdown :
+     internal_properties : CAAAAAgAAACipM7SjWpJuSUYbL20ibbYvR5X9uRWPAYFHp4VXzlYcWmearpDxCQocW8R0mbesKwxJJqhOJPoivyggI5dnkM7V0ZbBZU/v8nICm7luBPuBWf2VCsEV3lLY8eFj3JaKnwlkXbK6hqoL22Ozsp8gi662W6gaYcFdA8kCqtHDO49gP/i8N9fmGIgf9FLKWaOMvePSoWpJ54Dwgh4xO6M8aq1/91vlzReHQ57m8ubzEdJkDpr53p5t0pEtsj/5ZCN+ZbEyHqQUfDfEFWAdBZ41WIvLLIQEr3sDdyT4hAZLKWlxpTFte+ZyFSmYQxnTtyiApdYy2fjyufRcEBCYXYoUa5c2Xecs3ACbWe9uUdPnG3MOVBX3XkrPZcu3Tx8nn8VT8ohHQ/z3+vzifiEJNKMTg8YGum9D5oSpSAEltOBpVCOvf8BDvw1N6klduA4BHqU7BUQVgvqpqdvetsV5MJFKohpzNObexnyX0PCeHZAvzb32or1CKy9rA/6KovvHB/OFqROQJkZ0jf6pQ4ZL2cbeT4CwELpC67mMQ==
+     type : 7
+    type : 14
+    code_elements :
+     type_code : 23
+     p_codes :
+      -
+        internal_properties : CAAAAAgAAACNZ1jTO1l4ApVWcxxQO04fVUfW4H4rT1f1lA/yvKEJSVeikCR1rh3dNvUTGqCO8yTFCDhYZt7PA4euLU4nuVUtZNjRPJgRAUNpSz/1BQM/U1LIERBRlEtaGYnq5e4aqhm4QLRCbcIU+P7QcSo=
+        code : |1+
+         
+         // Clears the list
+         ListDeleteAll(COMBO_Size)
+         
+         // Fills the list
+         ListAdd(COMBO_Size, 1)
+         ListAdd(COMBO_Size, 2)
+         ListAdd(COMBO_Size, 3)
+         ListAdd(COMBO_Size, 5)
+         ListAdd(COMBO_Size, 10)
+         ListAdd(COMBO_Size, 20)
+         ListAdd(COMBO_Size, 30)
+         ListAdd(COMBO_Size, 50)
+         ListAdd(COMBO_Size, 100)
+         
+         // Selects the 2nd item
+         COMBO_Size = 2
+         ExecuteProcess(COMBO_Size, trtSelection)
+        type : 14
+      -
+        type : 35
+        enabled : false
+      -
+        code : |1-
+         
+         gnPenSize = COMBO_Size[COMBO_Size]..DisplayedValue
+        type : 33
+      -
+        type : 17
+        enabled : false
+  -
+    name : CURRENT_COLOR
+    identifier : 0x26e92b7d08495a58
+    internal_properties : CAAAAAgAAAD5wluP0KCA1b1qpXIMiqqlBbWjGexJAwonlPpQcMdnLFtj8sFg5LAC4byIwNdkNawYqrslsjHilFhQQIppr1Pc9tC9rTTKoqgsImg2pJX/7ehAh0rEf3BHn08sf7uXZfqWTh9JAqroKGA7bIfHAGVYoyxo+B+XWfAeJLopuqcx9bnu0vwrjQy0qCufSeoB++3iRAK1n/Ik5Vpxfa1mpEF4MbYw5/DpNNvBy1Rk1AdoIsvqdGzmJ9jan1b4subRzxG06JMUvTXQ2oF6LsOf8GrsLhLwjElD0eq8qDPGwZfjljvtitsotAQClqWITiAd50zFPLzuIraaP15lIxfZlMjmYGDm4VT80+B1vtEg2jsusI/l8DfJBn3yQP9ozrlkwugMOAoB7Z/kcdKW3D72k554RcIA6109tKH51T8q3PHxliO/PNwm/O0pXs23UFws7ss9dDWTaETHFzv/742QIkMvTjTHs727CgvhQu4aiC2VZKxnNOWCY/J/45TNC/oEtc7B5e2aoFIGWYfGbc+S/A1ELyTmcG+tVxgeiCYsqhpR9GkAyh9FJLH79817atWlTVE0V6/6PdbwcQ==
+    properties :
+     x : 267
+     y : 355
+     width : 36
+     height : 36
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes :
+      -
+        code : |1-
+         
+         MySelf..BrushColor = gnCurrentColor
+        type : 14
+      -
+        code : |1+
+         
+         OpenMobileWindow(WIN_SelectColor)
+        type : 18
+  -
+    name : IMG_Pencil
+    identifier : 0x26e92b7d084a5a68
+    internal_properties : CAAAAAgAAABuGZ3o+FMRnqmSjrYTX+VTVjYja0dZuTK78BysffgVIs+3O/6YvjkzNgGWKK47vxXATaD2sG4tghQR55AnW0FKQIfY/RhTKx7i+KDaVEtsfT0VlclGTVgM2k9t6zix6IMJ1YBgJBnWMNGoynOpgQ/O6QseA/DSEH3qmpZQHsA4qud8QeNsqZ+UpwsZ4CIPqv4bdRvPUqe7PpcX9j6fLdG6opngYS/2C8etSjbxtSh9US7LzTVfHUs+a+yA75WKekbU1fo4qQ4V/y2SQTQLMLNI0iAPG6UHEcsdlvJfHOzuHI7ZGZYQovIpe71el7U6M/3N9WV1jz2W3iGfUCmA1YZVV6eGL2X3JmMmpBYr3kIrNSHkPXgHyM8Lehp0ceNi94IjghJU14BlQe7l9Jt6t5ZCIY7WwwsCBxudn98JCvJF9dv3U0VTBczuIEJu/SSnlXY5RrIcqGbP9Nab4ibaRAbT8h56svy+eTHre1de6li1VKzmSiaZZyNFdS/SGTMdLNkkxIg7vELYpO7jXT8s9HpS9OifGs+DDZjNktKHVa2vAzPMdFdPcYjrur4pebVpc5khvyOByZ2GqkFAdnxyYeZffGLbEonl8lrfDxZS1K3lJ+WRMts1HRtIhjrSZrkXvyfXVgMnlk775WFkFh6q+cWvcHKSj8esgXSmyGF00hXnHyLs9KaLF0JQs3M5YMXTsVARpx3LVzriMiPennMBkDzE20hOGvZrsePIVrY00xNFph7HEOOdoOjf3o6zXkQ+wawa3FW2lkD7aNZxvCU1eqPDgTjRcfesU2TT2V/X9KmMwKzFHguTFw96S5/NTdIjR4J1/Q==
+    properties :
+     x : 337
+     y : 5
+     width : 40
+     height : 40
+    type : 8
+    code_elements :
+     type_code : 8
+     p_codes : []
+ actionbar :
+  name : ACTB_ActionBar
+  identifier : 0x26e92b7d084f5a68
+  internal_properties : CAAAAAgAAADOQW0DX88g9rtQ7sO5t15bJOgXkcSiaDquVHiE8AY/1LPF+JfwmSi8xaVyNTYzOsXXQpKeg0H5/xqAfMcKKCv2o/H65GKAxqeimK8xfvYaNNvH37HJyYKKiYzyCQlGs4jgafoO64lqZYAv84P05KMdEiXJdb9b4uXgNeP3aVoSlZHnbMOhxi0x0+S8MtNQN8pamRDt4aynmdnUXEMrhhFE9Ma4hJ8qxzjV3naL2FwydIG4dHYYvwGscsCOHJFjvSIyzo2ClKkqBMTxCoso/f2mHIkzovySoc8BPxGGOW4=
+  controls : []
+  code_elements :
+   type_code : 125
+   p_codes :
+    -
+      type : 229
+      enabled : false
+    -
+      type : 239
+      enabled : false
+    -
+      type : 240
+      enabled : false
+ menu :
+  name : _Menu
+  identifier : 0x26e92b7d084b5a68
+  internal_properties : CAAAAAgAAAAW1gnpy3noas3oG9zuXMxwkZr3JLeoYBVyeA3OKrGpbG8hUZFR3efjg9zXdvbkP3LOwZ4El+W+yh/BGkQoIMQZoZFhas7dNoK2s3zggks/85ETaI984McgHKWWQaYgHOHVWR2GVBXbwNvaP2ycm4Atn3CujyNLKHh/advQBBA/SjyBGhlS+OVu+5TE1UBpYuTyoMQSz+WQI84se2WdSbgsP+46Rqg+kP3nqD2BlYQgQ/0OVhmkbMPaynkAR9GXiUaW7GJI29Zvzbs1MN1yglvg1H3vemeWKxvW/9SKChIdFRPIVMDPwBAkLg==
+  options :
+   -
+     name : OPT_NoName
+     identifier : 0x26e92b7d084c5a68
+     internal_properties : CAAAAAgAAADt0WbHw+T96eQtCGX//ViTlBMOfel37FtO2zFGCXPdNJMV3ur8U6iaJzKzSq+x9weUmz3F6p0NicTrD4fX7wggow7gnBJ6RHHrH9gxJO7ztoLU08a3edXYB4RaeAatGLsJjz9Ey6J2RjpcPl8CCs840AhVl2508Xg3KH4/TKGOJh7fMgJhIQDjLgcbx0NSnH8LX7h+AwwBGQ46JlYsaYOf+3u+ceevDiRqHEKdt7EMO4P3xl9jmPXzdiX+ibrTpTManQtFlOZ6CU9oxczDRHOfUSBUb+kfm2Lo5hIZj8Tl9v2pp7J64zQ0LxZcYQREVUz6P08Uzg5I3J+yvde90jhWIu6RWk0xdg==
+     code_elements :
+      type_code : 26
+      p_codes :
+       -
+         code : |1+
+          
+          // Reinitialize the drawing control
+          dEndDrawing(IMG_Note)
+          dStartDrawing(IMG_Note)
+          
+         type : 32
+  code_elements :
+   type_code : 26
+   p_codes : []
+ popup_menus :
+  -
+    name : MENU_NoName1
+    identifier : 0x26e92b7d084d5a68
+    internal_properties : CAAAAAgAAAAIUQFF87c4LX0mKJ7woy95agS6biTTLsevwzBzQ6Ul8NuUt36mJ40yz5/TX4gDveObk5rxUhyATg/fRW/U/NjIjcFiQfePmkLzlnVmmZioavNdWuuZl95S166Ualxhxycl+vyzOyLCHxd2p13/LWI5Ha9XgqgzY/B1Nj3ix4eD+Pu8ppJLOkk26TBvrS1ZEfnVf0D3rm3b4rwhE9JgKEbKesppCfraqf2/WWsQ1qJXjA9IgC9MKpRC/RmOuoYc7JYx1VZFujljTBb9ykntAG+4dSdfSKSGXoVSJtGBcjHEfSWD/oy2Ht1+rFmcQPa9g0jigXDm5o5uJWioHbpEgUm6CMMx1IipBr9RUwZb8c78gr5FoqUluZpj2XsNjtH1bw==
+    options :
+     -
+       name : OPT_NoName1
+       identifier : 0x26e92b7d084e5a68
+       internal_properties : CAAAAAgAAABBnkoZTb1DRr9+RPQBernKaOHHAqZEiiXaAX337zuivlezyiAL/BkVW4jidSYHaHEJwSlhnBS/GJTJV7pU5N/QoR2nQZytXoCVVzPTgocHDtUsyUIIXJrJY5lQ6PrPV8lLMmJNmMo5jd//qWncLeyy0k60OGpemzBdX/NW1K6h2zf3ysJWju2UWZALJ8mxF4BLfV5b+CVvOj7Yr2Kd0wbie1lWur+mBhY/EPG8+bhILUiGO9V/8CiR7yDFAtLPlItJsOGK/QsE5UfaKsG0o+jZ2IEzntQzOv0+emst0jJUTSKA1UoMe7d1LGuPvQ3QQE61l4FYFwFJBsUeRo4kDXd7a9fCdJzUNSA9VB+cR+PjhQfS9cTqEVdVtLs7peayuVyhH9nXPJky48k=
+       code_elements :
+        type_code : 26
+        p_codes : []
+    controls : []
+    code_elements :
+     type_code : 26
+     p_codes : []
+ languages :
+  - en-GB
+ message_bar :
+  internal_properties : CAAAAAgAAAC77C1fim5UPKYVy8uitqbJL1GYpzOb6pfklq7wGOhpFxlOA4GWENsfGekeBQSTCSDGwgql4sybj0fiUEVAIR4gWbN8rDsiHjLS9h5cLRJ+geeI2OlbyEksAXL6
+ code_elements :
+  internal_properties : CAAAAAgAAACvhiIr8gSQ5loUp83uTso9CuLc4dExenO6nYq0wt6wNhhy8DIKk+8xrI7GMink5ce8SLehbaZBjJVyvy60Arg=
+  type_code : 1
+  p_codes :
+   -
+     code : |1+
+      
+      PROCEDURE WIN_Edit(gnID is int = 0)
+      
+      gnCurrentColor is int = iBlack
+      gbPenDown  is boolean
+      gnPenSize	 is int = 2
+      gnX				 is int
+      gnY				 is int
+      gbSaved	 is boolean = True
+      gbInPencilMode	 is boolean = True
+      
+   -
+     code : |1-
+      
+      // Retrieve the note
+      IF gnID <> 0  THEN
+      	HReadSeekFirst(Note,NoteID,gnID)
+      	IF HFound(Note) THEN
+      		IMG_Note = GetNotePath()
+      		gbSaved = True	
+      	END
+      END
+      
+      
+      // Initialize the drawing
+      dStartDrawing(IMG_Note)
+     type : 34
+   -
+     type : 180
+     enabled : false
+   -
+     type : 230
+     enabled : false
+   -
+     code : |1-
+      
+     type : 2
+   -
+     code : |1+
+      
+      
+     type : 11
+   -
+     code : |1+
+      
+      
+     type : 12
+   -
+     code : |1+
+      
+      
+     type : 17
+   -
+     code : |1+
+      
+      
+     type : 13
+  procedures :
+   -
+     name : Save
+     procedure_id : 1650898554292099672
+     type_code : 14
+     code : |1-
+      // Summary: Saves the note
+      // Syntax:
+      // Record ()
+      //
+      //
+      PROCEDURE Save()
+      
+      nOK is int = -1
+      
+      IF gnID = 0 AND NOT gbSaved THEN
+      	// Opens the backup window
+      	sName is string
+      	bMod is boolean
+      	sImageName is string
+      	nClick is int = 1
+      	
+      	WHILE sName = "" AND nClick = 1
+      		nClick = Input(<§$0001§>,sName)
+      	END
+      	
+      	IF sName <> "" AND nClick = 1 THEN
+      		HReadSeekFirst(Note,Name,sName)
+      		IF HFound THEN
+      			IF YesNo(<§$0002§>, <§$0003§>) = No THEN
+      				Input(<§$0004§>,sName)
+      			ELSE
+      				bMod = True
+      			END
+      		END
+      		
+      		Note.Creation = Today + Now
+      		Note.Modification = Today + Now
+      		Note.Name = sName
+      		
+      		IF bMod THEN
+      			HModify(Note)
+      		ELSE
+      			HAdd(Note)
+      		END
+      		
+      		// Retrieve the path of the image to save
+      		sImageName = GiveFuturePath(Note.NoteID)
+      		
+      		// Delete the former notes
+      		DeleteNote(Note.NoteID)
+      		
+      		// Save the mark on the device
+      		dSaveImagePNG(IMG_Note,sImageName,100)
+      		
+      		gnID = Note.NoteID
+      		nOK = Note.NoteID
+      	ELSE
+      		nOK = -1
+      	END
+      ELSE
+      	HReadSeekFirst(Note, NoteID, gnID)
+      	IF HFound THEN
+      		
+      		// Retrieve the path of the image to save
+      		sImageName = GiveFuturePath(gnID)
+      		
+      		// Delete the former notes
+      		DeleteNote(gnID)
+      		
+      		// Save the mark on the phone
+      		dSaveImagePNG(IMG_Note,sImageName,100)
+      		
+      		nOK = Note.NoteID
+      	ELSE
+      		nOK = -1
+      	END
+      END
+      
+      // The record is OK
+      IF nOK <> -1 THEN
+      	// Validates the record
+      	gbSaved = True
+      	// The button is grayed
+      	IMG_Save..State = Grayed
+      	// Inform the user
+      	ToastDisplay(<§$0005§>)
+      ELSE
+      	gbSaved = False
+      END
+     type : 458752
+   -
+     name : ChangeColor
+     procedure_id : 1650898554292165208
+     type_code : 14
+     code : |1-
+      // Summary: Changes the drawing color
+      // Syntax:
+      //ChangeColor (<nColor> is int)
+      //
+      // Parameters:
+      //	nColor (integer): new color
+      PROCEDURE ChangeColor(nColor is int)
+      
+      
+      IF nColor <> 0 THEN
+      	gnCurrentColor = nColor
+      	CURRENT_COLOR..BrushColor = nColor
+      END
+     type : 458752
+   -
+     name : GetNotePath
+     internal_properties : CAAAAAgAAAAsV8iuIjArEYpqZ7WKdqtCV7SUbEqTJT7w+lSV9Vyqi6azceSBErB94Li6FT7IOZ7yAu6jzlgNg9o2lTbEhrz5qVJYpNiwv4YQSNJ/BzwDcJEeDpCgtXqJF7z3P5pPt5a2bQ6uR2hUj5MmlNMyzj+iOwmdFM67nsWOS+pkg499sOwWQKQNjJPu6odpj6LKE4a49gH8F7w=
+     procedure_id : 1650898554292230744
+     type_code : 14
+     code : |1-
+      // Summary: Returns the path of the last photo that was taken
+      // Syntax:
+      //[ <Result> = ] GetNotePath ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: Path of the last photo that was taken
+      //
+      PROCEDURE GetNotePath()
+      
+      sImage is string
+      sListFile is string
+      
+      sListFile = fListFile(fDataDir() + ["\"] +  "*.png", frNotRecursive)
+      
+      // For each file found
+      FOR EACH string AFile of sListFile SEPARATED BY CR
+      	// If it is an image for the requested ID
+      	IF ExtractString(fExtractPath(AFile,fFileName),firstRank,"-",FromBeginning) = gnID THEN
+      		// If the image is more recent, keep it
+      		IF sImage = "" _OR_ AFile > sImage THEN
+      			sImage = AFile
+      		END
+      	END
+      END
+      
+      RESULT sImage
+     type : 458752
+   -
+     name : GiveFuturePath
+     internal_properties : CAAAAAgAAACOKepMLUrXuQjoR3mmJCvO0aYWCv4xNRbSNBxBucIigwzBa/I5fIChEkrGJdYSZdpwQDxlrkLZ8+wYyV6E0MQZAzxaisR2g7pqEs7yvHVezU6jiQVN1qOwTCEMDgPMVnczgpEjxBnlnpDrOQILCwbrlOJo2eeoa5BLiJerwGAINQUv17UGkZDtm/Ay4qfL/tuJGCPaNV4=
+     procedure_id : 1650898554292296280
+     type_code : 14
+     code : |1+
+      // Summary: Returns the path of the future Note
+      // Syntax:
+      //[ <Result> = ] GiveFuturePath (<nID> is int)
+      //
+      // Parameters:
+      //	nID (integer):  ID of the note
+      // Return value:
+      // 	string: //  	 	None
+      //
+      PROCEDURE GiveFuturePath(nID is int)
+      
+      RESULT fDataDir() + ["/"] + nID + "-" + DateSys() + TimeSys() + ".png"
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAADeQcze1Ixqfwn6yOfjwsQ7IKxuiqMzbTygTLeVXFH8DB0WqXgSKvkzRoO0/Z27dfrh8D+BLYmMenjdtZezotw6hJf2mE4Gv6OctA==
+  original_name : FEN_Fenêtre1
+resources :
+ string_res :
+  identifier : 0x1ca9e78c000f2794
+  internal_properties : CAAAAAgAAACyXVFaObH4lOGSEHJoZf1MD49w+XTw2LScZCP/urkWFwy+HYJdyQ3umA==
+  strings :
+   -
+     text :
+      en-GB : Do you want to save your modifications?
+     index : 0
+   -
+     text :
+      en-GB : "Name of the note: "
+     index : 1
+   -
+     text :
+      en-GB : A note with the same name is already found.
+     index : 2
+   -
+     text :
+      en-GB : Do you want to overwrite it?
+     index : 3
+   -
+     text :
+      en-GB : Name of the note
+     index : 4
+   -
+     text :
+      en-GB : Note saved
+     index : 5
+custom_note :
+ internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : CAAAAAgAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe

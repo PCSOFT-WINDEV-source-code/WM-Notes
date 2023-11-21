@@ -1,0 +1,57 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : GlobalProcedures
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x16e92b7f00d56276
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAAAdC5DaGsntqmfkq1J4p6eipmeEO//QiIdypV0FB6KY+wiPKnW2KoJpaKmeXvb1NGpH4KGGthHXu/V4LqeilI4jnJwO5Q==
+  type_code : 31
+  p_codes : []
+  procedures :
+   -
+     name : DeleteNote
+     internal_properties : CAAAAAgAAADMdygOAgAT4frqd3WKJitSp6SkbBojhd7w6hSFxTy6qwaTkVThUmDN8LgKWO5GlZ5c7Ix15v4Vc/gkzV60pDz9V+iakgxKv1q23hpwskNsH1xBr6fjhElWIk9KxHl6hOmJWH/1Sl9L9CbRrIsK5ieKs/H1nCYT9o12Y+Ice6dF+GSe2AxlBAt2En/hZ3riW3aY1mEc95w=
+     procedure_id : 1650898562882888310
+     type_code : 15
+     code : |1+
+      // Summary: Deletes the note from the SD card
+      // Syntax:
+      //DeleteNote (<nID> is int)
+      //
+      // Parameters:
+      //	nID (integer): ID of the note to delete
+      // Return value:
+      // 	None
+      //
+      PROCEDURE DeleteNote(nID is int)
+      
+      sListFile is string
+      
+      sListFile = fListFile(fDataDir() + ["\"] +  "*.png", frNotRecursive)
+      
+      // For each file found
+      FOR EACH string AFile of sListFile SEPARATED BY CR
+      	// If it is an image for the requested ID
+      	IF ExtractString(fExtractPath(AFile,fFileName),firstRank,"-",FromBeginning) = nID THEN
+      		fDelete(AFile)
+      	END
+      END
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_ProcéduresGlobales1
+resources :
+ string_res :
+  identifier : 0x1cc993a300211efc
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
